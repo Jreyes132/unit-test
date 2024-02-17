@@ -1,19 +1,24 @@
-import unittest
-from My_library import login 
-from My_library import search
 
-class TestYourModule(unittest.TestCase):
+from my_library import login
+from my_library import search
+import pytest
 
-    def test_login(self):
-        # Caso de prueba exitoso
-        assert login.login('valid_username', 'valid_password')
+# Usando la parametrización de pytest
+@pytest.mark.parametrize("username, password", [("mg12345", "df12@434c")])
+def test_login(username, password):
+    assert login.login_function(username, password)
+    assert not login.login_function('invalid_username', 'invalid_password')
 
-        # Caso de prueba fallido
-        assert not login.login('invalid_username', 'invalid_password')
-
-    def test_search(self):
-        # Caso de prueba con resultados
-        assert search.search('query_with_results'), ['apple', 'grape']
-
-        # Caso de prueba sin resultados
-        assert search.search('query_without_results'), []
+@pytest.mark.parametrize("query", ["carta"])
+def test_search(query):
+    print()
+    print("========================================================================================================")
+    print("Datos de la búsqueda:")
+    search.show_data()
+    results = search.search_function(query)
+    print("========================================================================================================")
+    print("Resultados de la búsqueda:")
+    for result in results:
+        print(result)
+    assert results
+    assert search.search_function("consulta_inexistente") == []
