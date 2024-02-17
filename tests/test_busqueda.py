@@ -4,12 +4,12 @@ from my_library import search
 import pytest
 
 # Usando la parametrización de pytest
-@pytest.mark.parametrize("username, password", [("mg12345", "df12@434c")])
+@pytest.mark.parametrize("username, password", [("mg12345", "df12@434c"), ("invalid_username", "invalid_password")])
 def test_login(username, password):
     assert login.login_function(username, password)
     assert not login.login_function('invalid_username', 'invalid_password')
 
-@pytest.mark.parametrize("query", ["carta"])
+@pytest.mark.parametrize("query", [("carta"), ("acta"), ("certificado"),('consulta_inexistente')])
 def test_search(query):
     print()
     print("========================================================================================================")
